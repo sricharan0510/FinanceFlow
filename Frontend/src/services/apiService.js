@@ -18,7 +18,7 @@ const refreshToken = async () => {
 };
 
 
-const fetchWithAuth = async (url, options = {}, retry = true) => {
+export const fetchWithAuth = async (url, options = {}, retry = true) => {
     let response = await fetch(url, options);
     if (response.status === 401) {
         // Try to refresh token if expired
@@ -43,7 +43,7 @@ const fetchWithAuth = async (url, options = {}, retry = true) => {
     return response;
 };
 
-const handleResponse = async (response) => {
+export const handleResponse = async (response) => {
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({ message: 'An unknown error occurred' }));
         throw new Error(errorData.message);
@@ -54,7 +54,7 @@ const handleResponse = async (response) => {
     return response.json();
 };
 
-const getAuthHeaders = () => ({
+export const getAuthHeaders = () => ({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
 });

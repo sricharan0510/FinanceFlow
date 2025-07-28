@@ -4,6 +4,8 @@ import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
 import BudgetsPage from './pages/BudgetsPage';
+
+import SubscriptionsPage from './pages/SubscriptionsPage';
 import MainLayout from './layouts/MainLayout';
 
 
@@ -38,9 +40,14 @@ export default function App() {
                     path="/transactions" 
                     element={isAuthenticated ? <MainLayout onLogout={handleLogout}><TransactionsPage /></MainLayout> : <Navigate to="/login" />} 
                 />
+
                 <Route 
                     path="/budgets" 
                     element={isAuthenticated ? <MainLayout onLogout={handleLogout}><BudgetsPage /></MainLayout> : <Navigate to="/login" />} 
+                />
+                <Route 
+                    path="/subscriptions" 
+                    element={isAuthenticated ? <MainLayout onLogout={handleLogout}><SubscriptionsPage /></MainLayout> : <Navigate to="/login" />} 
                 />
 
                 
