@@ -278,36 +278,36 @@ const availableCategories = useMemo(() => {
     return (
         <>
             {/* Search and Export Bar */}
-            <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-between mb-4 gap-2 sm:gap-4">
                 <input
                     type="text"
                     placeholder="Search by description..."
                     value={searchText}
                     onChange={e => setSearchText(e.target.value)}
-                    className="p-2 border border-gray-300 rounded-lg w-64 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                    className="p-2 border border-gray-300 rounded-lg w-full sm:w-64 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                 />
                 <button
                     onClick={handleExportCSV}
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors shadow-sm hover:shadow-md"
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors shadow-sm hover:shadow-md w-full sm:w-auto justify-center"
                 >
                     Export CSV
                 </button>
             </div>
             {/* Header */}
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-gray-800">Transactions</h1>
-                <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mb-6 gap-2 sm:gap-4">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Transactions</h1>
+                <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
                     <button onClick={() => changeMonth(-1)} className="p-2 rounded-full hover:bg-gray-100 transition-colors"><ChevronLeftIcon /></button>
-                    <span className="text-xl font-semibold text-gray-700 w-36 text-center">{currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+                    <span className="text-base sm:text-xl font-semibold text-gray-700 w-24 sm:w-36 text-center">{currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
                     <button onClick={() => changeMonth(1)} className="p-2 rounded-full hover:bg-gray-100 transition-colors"><ChevronRightIcon /></button>
                 </div>
-                <button onClick={() => handleOpenModal()} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors shadow-sm hover:shadow-md">
+                <button onClick={() => handleOpenModal()} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors shadow-sm hover:shadow-md w-full sm:w-auto justify-center">
                     <PlusIcon /> Add Transaction
                 </button>
             </div>
 
             {/* Monthly Summary */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-6">
                 <SummaryCard title="Income" amount={monthlySummary.income} colorClass={{ bg: 'bg-green-50', text: 'text-green-800', main: 'text-green-600' }} />
                 <SummaryCard title="Expenses" amount={monthlySummary.expense} colorClass={{ bg: 'bg-red-50', text: 'text-red-800', main: 'text-red-600' }} />
                 <SummaryCard title="Balance" amount={monthlySummary.income - monthlySummary.expense} colorClass={{ bg: 'bg-blue-50', text: 'text-blue-800', main: 'text-blue-600' }} />
@@ -316,49 +316,49 @@ const availableCategories = useMemo(() => {
             {/* --- Filters, Date Range, Table, Pagination --- */}
             <Card>
                 {/* Filter Bar */}
-                <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
-                    <div className='flex items-center space-x-2'>
+                <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between mb-4">
+                    <div className='flex items-center gap-2'>
                         <FilterIcon />
-                        <h3 className="text-lg font-semibold text-gray-700">Filters</h3>
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-700">Filters</h3>
                     </div>
-                    <div className="flex flex-wrap items-center gap-4">
-                        <select value={filterType} onChange={e => { setFilterType(e.target.value); setFilterCategory('all'); }} className="p-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 w-full sm:w-auto">
+                        <select value={filterType} onChange={e => { setFilterType(e.target.value); setFilterCategory('all'); }} className="p-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition w-full sm:w-auto">
                             <option value="all">All Types</option>
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
                         </select>
-                        <select value={filterCategory} onChange={e => setFilterCategory(e.target.value)} className="p-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" disabled={filterType === 'all'}>
+                        <select value={filterCategory} onChange={e => setFilterCategory(e.target.value)} className="p-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition w-full sm:w-auto" disabled={filterType === 'all'}>
                             {availableCategories.map(cat => <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>)}
                         </select>
-                        <button onClick={clearFilters} className="text-sm font-medium text-indigo-600 hover:text-indigo-800">Clear Filters</button>
+                        <button onClick={clearFilters} className="text-xs sm:text-sm font-medium text-indigo-600 hover:text-indigo-800 w-full sm:w-auto">Clear Filters</button>
                     </div>
                 </div>
                 {/* Date Range Filter */}
-                <form className="flex flex-wrap items-center gap-4 mb-4" onSubmit={handleDateFilter}>
-                    <label className="text-sm text-gray-700">From:
-                        <input type="date" value={filterStartDate} min={minDate} max={maxDate} onChange={e => setFilterStartDate(e.target.value)} className="ml-2 p-2 border border-gray-300 rounded-lg" />
+                <form className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 mb-4" onSubmit={handleDateFilter}>
+                    <label className="text-xs sm:text-sm text-gray-700 flex flex-col sm:flex-row items-start sm:items-center">From:
+                        <input type="date" value={filterStartDate} min={minDate} max={maxDate} onChange={e => setFilterStartDate(e.target.value)} className="mt-1 sm:mt-0 sm:ml-2 p-2 border border-gray-300 rounded-lg w-full sm:w-auto" />
                     </label>
-                    <label className="text-sm text-gray-700">To:
-                        <input type="date" value={filterEndDate} min={filterStartDate || minDate} max={maxDate} onChange={e => setFilterEndDate(e.target.value)} className="ml-2 p-2 border border-gray-300 rounded-lg" />
+                    <label className="text-xs sm:text-sm text-gray-700 flex flex-col sm:flex-row items-start sm:items-center">To:
+                        <input type="date" value={filterEndDate} min={filterStartDate || minDate} max={maxDate} onChange={e => setFilterEndDate(e.target.value)} className="mt-1 sm:mt-0 sm:ml-2 p-2 border border-gray-300 rounded-lg w-full sm:w-auto" />
                     </label>
-                    <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-lg">Apply</button>
-                    {(filterStartDate && filterEndDate) && <button type="button" onClick={clearDateFilter} className="text-indigo-600 ml-2">Clear Date Filter</button>}
+                    <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-lg w-full sm:w-auto">Apply</button>
+                    {(filterStartDate && filterEndDate) && <button type="button" onClick={clearDateFilter} className="text-indigo-600 ml-0 sm:ml-2 w-full sm:w-auto">Clear Date Filter</button>}
                 </form>
                 {/* Table */}
-                <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
+                <div className="w-full overflow-x-auto min-w-[320px]">
+                    <table className="min-w-full divide-y divide-gray-200 text-xs sm:text-sm">
                         <thead className="bg-gray-50">
                             <tr>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none" onClick={handleAmountSort}>
+                                <th scope="col" className="px-2 sm:px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" className="px-2 sm:px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                <th scope="col" className="px-2 sm:px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th scope="col" className="px-2 sm:px-6 py-3 text-right font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none" onClick={handleAmountSort}>
                                     Amount
                                     {amountSort === 'asc' && <AscIcon />}
                                     {amountSort === 'desc' && <DescIcon />}
                                     {!amountSort && <span style={{ opacity: 0.3 }}><AscIcon /><DescIcon /></span>}
                                 </th>
-                                <th scope="col" className="relative px-6 py-3">
+                                <th scope="col" className="relative px-2 sm:px-6 py-3">
                                     <span className="sr-only">Actions</span>
                                 </th>
                             </tr>
@@ -377,9 +377,9 @@ const availableCategories = useMemo(() => {
                     </table>
                 </div>
                 {/* Pagination */}
-                <div className="flex flex-wrap items-center justify-between mt-4 gap-4">
+                <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-between mt-4 gap-2 sm:gap-4">
                     <div className="flex items-center gap-2">
-                        <span className="text-sm">Rows per page:</span>
+                        <span className="text-xs sm:text-sm">Rows per page:</span>
                         <select value={rowsPerPage} onChange={handleRowsPerPage} className="p-1 border rounded">
                             <option value={10}>10</option>
                             <option value={20}>20</option>
@@ -388,7 +388,7 @@ const availableCategories = useMemo(() => {
                     </div>
                     <div className="flex items-center gap-2">
                         <button onClick={() => setPage(p => Math.max(p - 1, 1))} disabled={page === 1} className="p-2" style={{ opacity: page === 1 ? 0.5 : 1 }}><ChevronLeftIcon /></button>
-                        <span className="text-sm">Page {page} of {totalPages}</span>
+                        <span className="text-xs sm:text-sm">Page {page} of {totalPages}</span>
                         <button onClick={() => setPage(p => Math.min(p + 1, totalPages))} disabled={page === totalPages} className="p-2" style={{ opacity: page === totalPages ? 0.5 : 1 }}><ChevronRightIcon /></button>
                     </div>
                 </div>
@@ -470,8 +470,8 @@ const TransactionModal = ({ transaction, onClose, onSave }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-            <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-2 sm:p-4">
+            <div className="bg-white p-4 sm:p-8 rounded-xl shadow-2xl w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6">{transaction ? 'Edit' : 'Add'} Transaction</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -482,7 +482,7 @@ const TransactionModal = ({ transaction, onClose, onSave }) => {
                         <label className="block text-gray-700 mb-2">Amount</label>
                         <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label className="block text-gray-700 mb-2">Type</label>
                             <select name="type" value={formData.type} onChange={handleChange} className="w-full p-2 border rounded-lg" required>
@@ -507,7 +507,7 @@ const TransactionModal = ({ transaction, onClose, onSave }) => {
                         <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
                     </div>
                     {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4">
                         <button type="button" onClick={onClose} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">Cancel</button>
                         <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">Save</button>
                     </div>

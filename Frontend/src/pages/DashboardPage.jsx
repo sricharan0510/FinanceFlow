@@ -58,8 +58,8 @@ const TransactionModal = ({ onClose, onSave }) => {
         }
     };
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-            <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-2 sm:p-4">
+            <div className="bg-white p-4 sm:p-8 rounded-xl shadow-2xl w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6">Add Transaction</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -70,7 +70,7 @@ const TransactionModal = ({ onClose, onSave }) => {
                         <label className="block text-gray-700 mb-2">Amount</label>
                         <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label className="block text-gray-700 mb-2">Type</label>
                             <select name="type" value={formData.type} onChange={handleChange} className="w-full p-2 border rounded-lg" required>
@@ -95,7 +95,7 @@ const TransactionModal = ({ onClose, onSave }) => {
                         <input type="date" name="date" value={formData.date} onChange={handleChange} className="w-full p-2 border rounded-lg" required />
                     </div>
                     {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-4">
                         <button type="button" onClick={onClose} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">Cancel</button>
                         <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">Save</button>
                     </div>
@@ -284,18 +284,18 @@ export default function DashboardPage() {
     if (error) return <div className="text-center p-10 font-semibold text-red-600">{error}</div>;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-50 p-4 md:p-8">
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-50 p-2 sm:p-4 md:p-8">
             {/* User Greeting */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                     {user.avatar ? (
-                        <img src={user.avatar} alt="avatar" className="w-14 h-14 rounded-full border-2 border-indigo-400" />
+                        <img src={user.avatar} alt="avatar" className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-indigo-400" />
                     ) : (
-                        <FaUserCircle className="w-14 h-14 text-indigo-400" />
+                        <FaUserCircle className="w-12 h-12 sm:w-14 sm:h-14 text-indigo-400" />
                     )}
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Welcome back, {user.name || 'User'}!</h1>
-                        <p className="text-gray-500 text-sm">Here's your financial overview at a glance.</p>
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Welcome back, {user.name || 'User'}!</h1>
+                        <p className="text-gray-500 text-xs sm:text-sm">Here's your financial overview at a glance.</p>
                     </div>
                 </div>
                 {/* Month Selector */}
@@ -304,7 +304,7 @@ export default function DashboardPage() {
                     <input
                         id="month"
                         type="month"
-                        className="border rounded-lg px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                        className="border rounded-lg px-2 sm:px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                         value={selectedMonth}
                         onChange={e => setSelectedMonth(e.target.value)}
                         max={new Date().toISOString().slice(0, 7)}
@@ -313,40 +313,40 @@ export default function DashboardPage() {
             </div>
 
             {/* Summary Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-gradient-to-r from-green-200 to-green-100 p-6 rounded-2xl shadow flex items-center gap-4">
-                    <span className="bg-green-500 text-white p-3 rounded-full text-2xl"><FaArrowUp /></span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+                <div className="bg-gradient-to-r from-green-200 to-green-100 p-4 sm:p-6 rounded-2xl shadow flex items-center gap-3 sm:gap-4">
+                    <span className="bg-green-500 text-white p-2 sm:p-3 rounded-full text-xl sm:text-2xl"><FaArrowUp /></span>
                     <div>
-                        <h3 className="text-green-800 font-bold">Total Income</h3>
-                        <p className="text-3xl font-bold text-green-600">₹{summary.totalIncome.toLocaleString()}</p>
+                        <h3 className="text-green-800 font-bold text-sm sm:text-base">Total Income</h3>
+                        <p className="text-2xl sm:text-3xl font-bold text-green-600">₹{summary.totalIncome.toLocaleString()}</p>
                     </div>
                 </div>
-                <div className="bg-gradient-to-r from-red-200 to-red-100 p-6 rounded-2xl shadow flex items-center gap-4">
-                    <span className="bg-red-500 text-white p-3 rounded-full text-2xl"><FaArrowDown /></span>
+                <div className="bg-gradient-to-r from-red-200 to-red-100 p-4 sm:p-6 rounded-2xl shadow flex items-center gap-3 sm:gap-4">
+                    <span className="bg-red-500 text-white p-2 sm:p-3 rounded-full text-xl sm:text-2xl"><FaArrowDown /></span>
                     <div>
-                        <h3 className="text-red-800 font-bold">Total Expenses</h3>
-                        <p className="text-3xl font-bold text-red-600">₹{summary.totalExpense.toLocaleString()}</p>
+                        <h3 className="text-red-800 font-bold text-sm sm:text-base">Total Expenses</h3>
+                        <p className="text-2xl sm:text-3xl font-bold text-red-600">₹{summary.totalExpense.toLocaleString()}</p>
                     </div>
                 </div>
-                <div className="bg-gradient-to-r from-blue-200 to-blue-100 p-6 rounded-2xl shadow flex items-center gap-4">
-                    <span className="bg-blue-500 text-white p-3 rounded-full text-2xl"><FaWallet /></span>
+                <div className="bg-gradient-to-r from-blue-200 to-blue-100 p-4 sm:p-6 rounded-2xl shadow flex items-center gap-3 sm:gap-4">
+                    <span className="bg-blue-500 text-white p-2 sm:p-3 rounded-full text-xl sm:text-2xl"><FaWallet /></span>
                     <div>
-                        <h3 className="text-blue-800 font-bold">Balance</h3>
-                        <p className="text-3xl font-bold text-blue-600">₹{summary.balance.toLocaleString()}</p>
+                        <h3 className="text-blue-800 font-bold text-sm sm:text-base">Balance</h3>
+                        <p className="text-2xl sm:text-3xl font-bold text-blue-600">₹{summary.balance.toLocaleString()}</p>
                     </div>
                 </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 mb-8">
                 <button
-                    className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow transition"
+                    className="flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow transition w-full sm:w-auto justify-center"
                     onClick={() => setIsModalOpen(true)}
                 >
                     <FaPlus /> Add Transaction
                 </button>
                 <button
-                    className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition"
+                    className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition w-full sm:w-auto justify-center"
                     onClick={handleExportCSV}
                 >
                     <FaFileDownload /> Download Report
@@ -360,11 +360,11 @@ export default function DashboardPage() {
             )}
 
             {/* Main Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-8">
                 {/* Left: Recent Transactions & Trends */}
-                <div className="lg:col-span-3 flex flex-col gap-8">
-                    <div className="bg-white p-6 rounded-2xl shadow-md">
-                        <h2 className="text-xl font-bold text-gray-700 mb-4 flex items-center gap-2">Recent Transactions</h2>
+                <div className="lg:col-span-3 flex flex-col gap-4 md:gap-8">
+                    <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-md">
+                        <h2 className="text-lg sm:text-xl font-bold text-gray-700 mb-4 flex items-center gap-2">Recent Transactions</h2>
                         <div className="space-y-2">
                             {transactions.length > 0 
                                 ? transactions.slice(0, 5).map(t => <TransactionItem key={t._id} transaction={t} />)
@@ -372,9 +372,9 @@ export default function DashboardPage() {
                             }
                         </div>
                     </div>
-                    <div className="bg-white p-6 rounded-2xl shadow-md w-full">
-                        <h2 className="text-xl font-bold text-gray-700 mb-4 flex items-center gap-2">Income & Expense Trends (Last 6 Months)</h2>
-                        <div className="w-full h-80">
+                    <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-md w-full">
+                        <h2 className="text-lg sm:text-xl font-bold text-gray-700 mb-4 flex items-center gap-2">Income & Expense Trends (Last 6 Months)</h2>
+                        <div className="w-full h-64 sm:h-80">
                             <Line data={{
                                 labels: trendLabels,
                                 datasets: [
@@ -413,10 +413,10 @@ export default function DashboardPage() {
                     </div>
                 </div>
                 {/* Right: Expense Breakdown & Tips */}
-                <div className="lg:col-span-2 flex flex-col gap-8">
-                    <div className="bg-white p-6 rounded-2xl shadow-md flex flex-col items-center">
-                        <h2 className="text-xl font-bold text-gray-700 mb-4">Expense Breakdown</h2>
-                        <div className="w-64 h-64">
+                <div className="lg:col-span-2 flex flex-col gap-4 md:gap-8">
+                    <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-md flex flex-col items-center">
+                        <h2 className="text-lg sm:text-xl font-bold text-gray-700 mb-4">Expense Breakdown</h2>
+                        <div className="w-48 h-48 sm:w-64 sm:h-64">
                             {expenseTransactions.length > 0 
                                 ? <Doughnut data={doughnutData} options={{ 
                                     maintainAspectRatio: false, 
@@ -429,11 +429,11 @@ export default function DashboardPage() {
                             }
                         </div>
                     </div>
-                    <div className="bg-gradient-to-r from-yellow-100 to-yellow-50 p-6 rounded-2xl shadow flex items-center gap-4">
-                        <span className="bg-yellow-400 text-white p-3 rounded-full text-2xl"><FaRegLightbulb /></span>
+                    <div className="bg-gradient-to-r from-yellow-100 to-yellow-50 p-4 sm:p-6 rounded-2xl shadow flex items-center gap-3 sm:gap-4">
+                        <span className="bg-yellow-400 text-white p-2 sm:p-3 rounded-full text-xl sm:text-2xl"><FaRegLightbulb /></span>
                         <div>
-                            <h3 className="text-yellow-800 font-bold">Financial Tip</h3>
-                            <p className="text-yellow-700 text-sm">Track your expenses regularly and set monthly savings goals to improve your financial health!</p>
+                            <h3 className="text-yellow-800 font-bold text-sm sm:text-base">Financial Tip</h3>
+                            <p className="text-yellow-700 text-xs sm:text-sm">Track your expenses regularly and set monthly savings goals to improve your financial health!</p>
                         </div>
                     </div>
                 </div>

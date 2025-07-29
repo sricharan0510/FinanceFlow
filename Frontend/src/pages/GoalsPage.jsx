@@ -270,33 +270,33 @@ export default function GoalsPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4">
-      <h1 className="text-4xl font-extrabold mb-8 text-indigo-900">Goals & Savings</h1>
+    <div className="max-w-6xl mx-auto py-6 px-2 sm:px-4 md:px-8">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 sm:mb-8 text-indigo-900">Goals & Savings</h1>
       {/* Summary Boxes */}
-      <div className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-green-200 min-h-[110px] p-6">
-          <div className="text-gray-500 text-sm mb-1">Active Goals</div>
-          <div className="text-4xl font-extrabold text-green-600">{activeGoals}</div>
+      <div className="mb-6 sm:mb-8 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-green-200 min-h-[90px] sm:min-h-[110px] p-4 sm:p-6">
+          <div className="text-gray-500 text-xs sm:text-sm mb-1">Active Goals</div>
+          <div className="text-2xl sm:text-4xl font-extrabold text-green-600">{activeGoals}</div>
         </div>
-        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-blue-200 min-h-[110px] p-6">
-          <div className="text-gray-500 text-sm mb-1">Completed Goals</div>
-          <div className="text-4xl font-extrabold text-blue-600">{completedGoals}</div>
+        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-blue-200 min-h-[90px] sm:min-h-[110px] p-4 sm:p-6">
+          <div className="text-gray-500 text-xs sm:text-sm mb-1">Completed Goals</div>
+          <div className="text-2xl sm:text-4xl font-extrabold text-blue-600">{completedGoals}</div>
         </div>
-        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-pink-200 min-h-[110px] p-6">
-          <div className="text-gray-500 text-sm mb-1">Total Needed to Reach All Goals</div>
-          <div className="text-4xl font-extrabold text-pink-600">₹{totalNeeded.toLocaleString()}</div>
+        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-pink-200 min-h-[90px] sm:min-h-[110px] p-4 sm:p-6">
+          <div className="text-gray-500 text-xs sm:text-sm mb-1">Total Needed to Reach All Goals</div>
+          <div className="text-2xl sm:text-4xl font-extrabold text-pink-600">₹{totalNeeded.toLocaleString()}</div>
         </div>
-        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-indigo-200 min-h-[110px] p-6">
-          <div className="text-gray-500 text-sm mb-1">Total Saved</div>
-          <div className="text-4xl font-extrabold text-indigo-700">₹{totalSaved.toLocaleString()}</div>
+        <div className="bg-white rounded-2xl shadow-lg flex flex-col items-center border-2 border-indigo-200 min-h-[90px] sm:min-h-[110px] p-4 sm:p-6">
+          <div className="text-gray-500 text-xs sm:text-sm mb-1">Total Saved</div>
+          <div className="text-2xl sm:text-4xl font-extrabold text-indigo-700">₹{totalSaved.toLocaleString()}</div>
         </div>
       </div>
       {/* Filters */}
-      <div className="mb-8 bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-wrap gap-4 items-center justify-between">
-        <div className="flex flex-wrap gap-4 items-center w-full md:w-auto">
+      <div className="mb-6 sm:mb-8 bg-white rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center w-full">
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">Status</label>
-            <select name="status" value={filter.status} onChange={handleFilterChange} className="p-2 border border-gray-300 rounded-lg bg-white min-w-[110px]">
+            <select name="status" value={filter.status} onChange={handleFilterChange} className="p-2 border border-gray-300 rounded-lg bg-white min-w-[110px] w-full">
               <option value="">All Status</option>
               <option value="active">Active</option>
               <option value="completed">Completed</option>
@@ -304,33 +304,35 @@ export default function GoalsPage() {
           </div>
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">Priority</label>
-            <select name="priority" value={filter.priority} onChange={handleFilterChange} className="p-2 border border-gray-300 rounded-lg bg-white min-w-[120px]">
+            <select name="priority" value={filter.priority} onChange={handleFilterChange} className="p-2 border border-gray-300 rounded-lg bg-white min-w-[120px] w-full">
               <option value="">All Priorities</option>
               {priorities.map(p => <option key={p}>{p}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">Min Amount</label>
-            <input name="minAmount" type="number" value={filter.minAmount} onChange={handleFilterChange} placeholder="Min" className="p-2 border border-gray-300 rounded-lg w-20" />
+            <input name="minAmount" type="number" value={filter.minAmount} onChange={handleFilterChange} placeholder="Min" className="p-2 border border-gray-300 rounded-lg w-full min-w-[70px] max-w-[100px]" />
           </div>
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">Max Amount</label>
-            <input name="maxAmount" type="number" value={filter.maxAmount} onChange={handleFilterChange} placeholder="Max" className="p-2 border border-gray-300 rounded-lg w-20" />
+            <input name="maxAmount" type="number" value={filter.maxAmount} onChange={handleFilterChange} placeholder="Max" className="p-2 border border-gray-300 rounded-lg w-full min-w-[70px] max-w-[100px]" />
           </div>
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">Sort By</label>
-            <select name="sortBy" value={filter.sortBy} onChange={handleFilterChange} className="p-2 border border-gray-300 rounded-lg bg-white min-w-[110px]">
+            <select name="sortBy" value={filter.sortBy} onChange={handleFilterChange} className="p-2 border border-gray-300 rounded-lg bg-white min-w-[110px] w-full">
               <option value="">Sort By</option>
               <option value="deadline">Deadline</option>
               <option value="amountRemaining">Amount Remaining</option>
             </select>
           </div>
-          <button onClick={handleClearFilters} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg shadow whitespace-nowrap">Clear Filters</button>
-          <button onClick={() => { setEditGoal({}); }} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow whitespace-nowrap">+ Add New Goal</button>
+          <div className="flex flex-row gap-2 mt-2 sm:mt-0">
+            <button onClick={handleClearFilters} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 sm:px-6 rounded-lg shadow whitespace-nowrap w-full sm:w-auto">Clear Filters</button>
+            <button onClick={() => { setEditGoal({}); }} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 sm:px-6 rounded-lg shadow whitespace-nowrap w-full sm:w-auto">+ Add New Goal</button>
+          </div>
         </div>
       </div>
       {/* Goals List - Card Style */}
-      <div className="grid gap-8">
+      <div className="grid gap-4 sm:gap-8">
         {(goals || []).length === 0 && (
           <div className="text-center text-gray-400 py-12 text-lg">No goals found. Start by adding a new goal!</div>
         )}

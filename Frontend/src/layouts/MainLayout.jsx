@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 // --- Reusable Icons ---
@@ -13,11 +13,15 @@ const ReceiptIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6
 const TaxIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>;
 const LogoutIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>;
 
-const NavLink = ({ to, icon, text }) => {
+const NavLink = ({ to, icon, text, onClick }) => {
     const location = useLocation();
     const isActive = location.pathname.startsWith(to);
     return (
-        <Link to={to} className={`flex items-center px-4 py-3 text-gray-200 hover:bg-indigo-700 rounded-lg transition-colors duration-200 ${isActive ? 'bg-indigo-700' : ''}`}>
+        <Link
+            to={to}
+            onClick={onClick}
+            className={`flex items-center px-4 py-3 text-gray-200 hover:bg-indigo-700 rounded-lg transition-colors duration-200 ${isActive ? 'bg-indigo-700' : ''}`}
+        >
             {icon}
             <span className="ml-4 font-semibold">{text}</span>
         </Link>
@@ -26,37 +30,66 @@ const NavLink = ({ to, icon, text }) => {
 
 export default function MainLayout({ children, onLogout }) {
     const user = JSON.parse(localStorage.getItem('user'));
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    // Sidebar content for reuse
+    const SidebarContent = ({ onLinkClick }) => (
+        <>
+            <div className="text-2xl font-bold mb-10 px-4 mt-4">FinanceFlow</div>
+            <nav className="flex-grow space-y-2">
+                <NavLink to="/dashboard" icon={<DashboardIcon />} text="Dashboard" onClick={onLinkClick} />
+                <NavLink to="/transactions" icon={<TransactionsIcon />} text="Transactions" onClick={onLinkClick} />
+                <NavLink to="/budgets" icon={<BudgetIcon />} text="Budgets" onClick={onLinkClick} />
+                <NavLink to="/subscriptions" icon={<SubscriptionsIcon />} text="Subscriptions" onClick={onLinkClick} />
+                <NavLink to="/goals" icon={<GoalsIcon />} text="Goals & Savings" onClick={onLinkClick} />
+                <NavLink to="/ai-insights" icon={<AIIcon />} text="AI Insights" onClick={onLinkClick} />
+                {/* <NavLink to="/receipt-scanner" icon={<ReceiptIcon />} text="Receipt Scanner" onClick={onLinkClick} />
+                <NavLink to="/tax-estimator" icon={<TaxIcon />} text="Tax Estimator" onClick={onLinkClick} /> */}
+                {/* <NavLink to="/reports" icon={<ReportsIcon />} text="AI Reports" onClick={onLinkClick} /> */}
+            </nav>
+            <div>
+                <div className="border-t border-indigo-700 mb-4"></div>
+                <div className="px-4 py-2">
+                    <p className="font-semibold">{user?.name}</p>
+                    <p className="text-sm text-indigo-300">{user?.email}</p>
+                </div>
+                <button onClick={onLogout} className="w-full flex items-center px-4 py-3 text-gray-200 hover:bg-indigo-700 rounded-lg transition-colors duration-200">
+                    <LogoutIcon />
+                    <span className="ml-4 font-semibold">Logout</span>
+                </button>
+            </div>
+        </>
+    );
 
     return (
         <div className="flex h-screen bg-gray-100 font-sans">
-            <div className="w-64 bg-indigo-800 text-white flex-col p-4 hidden md:flex">
-                <div className="text-2xl font-bold mb-10 px-4 mt-4">FinanceFlow</div>
-                <nav className="flex-grow space-y-2">
-                    <NavLink to="/dashboard" icon={<DashboardIcon />} text="Dashboard" />
-                    <NavLink to="/transactions" icon={<TransactionsIcon />} text="Transactions" />
-                    <NavLink to="/budgets" icon={<BudgetIcon />} text="Budgets" />
-                    <NavLink to="/subscriptions" icon={<SubscriptionsIcon />} text="Subscriptions" />
-                    <NavLink to="/goals" icon={<GoalsIcon />} text="Goals & Savings" />
-                    <NavLink to="/ai-insights" icon={<AIIcon />} text="AI Insights" />
-                    {/* <NavLink to="/receipt-scanner" icon={<ReceiptIcon />} text="Receipt Scanner" />
-                    <NavLink to="/tax-estimator" icon={<TaxIcon />} text="Tax Estimator" /> */}
-                    {/* <NavLink to="/reports" icon={<ReportsIcon />} text="AI Reports" /> */}
-                </nav>
-                <div>
-                    <div className="border-t border-indigo-700 mb-4"></div>
-                    <div className="px-4 py-2">
-                        <p className="font-semibold">{user?.name}</p>
-                        <p className="text-sm text-indigo-300">{user?.email}</p>
-                    </div>
-                    <button onClick={onLogout} className="w-full flex items-center px-4 py-3 text-gray-200 hover:bg-indigo-700 rounded-lg transition-colors duration-200">
+            {/* Mobile sidebar overlay */}
+            <div className={`fixed inset-0 z-40 bg-black bg-opacity-40 transition-opacity md:hidden ${sidebarOpen ? 'block' : 'hidden'}`} onClick={() => setSidebarOpen(false)}></div>
+            {/* Sidebar for desktop */}
+            <div className="w-64 bg-indigo-800 text-white flex-col p-4 hidden md:flex h-full">
+                <SidebarContent />
+            </div>
+            {/* Sidebar for mobile */}
+            <div className={`fixed top-0 left-0 z-50 w-64 h-full bg-indigo-800 text-white flex-col p-4 transform transition-transform duration-300 md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <button className="absolute top-4 right-4 text-white text-2xl" onClick={() => setSidebarOpen(false)} aria-label="Close sidebar">&times;</button>
+                <SidebarContent onLinkClick={() => setSidebarOpen(false)} />
+            </div>
+            {/* Main content */}
+            <div className="flex-1 flex flex-col min-h-0">
+                {/* Top bar for mobile */}
+                <div className="flex items-center justify-between bg-indigo-800 text-white px-4 py-3 md:hidden">
+                    <button onClick={() => setSidebarOpen(true)} className="text-2xl" aria-label="Open sidebar">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    </button>
+                    <span className="text-xl font-bold">FinanceFlow</span>
+                    <button onClick={onLogout} className="flex items-center text-gray-200 hover:text-white">
                         <LogoutIcon />
-                        <span className="ml-4 font-semibold">Logout</span>
                     </button>
                 </div>
+                <main className="flex-1 flex flex-col p-2 sm:p-4 md:p-8 overflow-y-auto">
+                    {children}
+                </main>
             </div>
-            <main className="flex-1 flex flex-col p-4 md:p-8 overflow-y-auto">
-                {children}
-            </main>
         </div>
     );
 }
