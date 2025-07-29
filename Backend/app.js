@@ -23,11 +23,13 @@ app.use(cookieParser());
 import authRouter from "./routes/auth.routes.js";
 import transactionRouter from "./routes/transaction.routes.js";
 import reportRouter from "./routes/report.routes.js";
+import goalRouter from "./routes/goal.routes.js";
 import subscriptionRouter from "./routes/subscription.routes.js";
 
 app.use("/api/auth", authRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/reports", reportRouter);
+app.use("/api/goals", goalRouter);
 app.use("/api/subscriptions", subscriptionRouter);
 
 mongoose.connect(process.env.MONGODB_URI)

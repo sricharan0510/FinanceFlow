@@ -6,6 +6,7 @@ import TransactionsPage from './pages/TransactionsPage';
 import BudgetsPage from './pages/BudgetsPage';
 
 import SubscriptionsPage from './pages/SubscriptionsPage';
+import GoalsPage from './pages/GoalsPage';
 import MainLayout from './layouts/MainLayout';
 
 
@@ -51,6 +52,11 @@ export default function App() {
                 />
 
                 
+                <Route 
+                    path="/goals" 
+                    element={isAuthenticated ? <MainLayout onLogout={handleLogout}><GoalsPage /></MainLayout> : <Navigate to="/login" />} 
+                />
+
                 {/* Default route */}
                 <Route 
                     path="*" 

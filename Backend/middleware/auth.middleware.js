@@ -23,3 +23,5 @@ export const verifyJWT = async (req, res, next) => {
         res.status(401).json({ message: error?.message || "Invalid access token" });
     }
 };
+
+export default verifyJWT;

@@ -38,8 +38,8 @@ export default function MainLayout({ children, onLogout }) {
                     <NavLink to="/subscriptions" icon={<SubscriptionsIcon />} text="Subscriptions" />
                     <NavLink to="/goals" icon={<GoalsIcon />} text="Goals & Savings" />
                     <NavLink to="/ai-insights" icon={<AIIcon />} text="AI Insights" />
-                    <NavLink to="/receipt-scanner" icon={<ReceiptIcon />} text="Receipt Scanner" />
-                    <NavLink to="/tax-estimator" icon={<TaxIcon />} text="Tax Estimator" />
+                    {/* <NavLink to="/receipt-scanner" icon={<ReceiptIcon />} text="Receipt Scanner" />
+                    <NavLink to="/tax-estimator" icon={<TaxIcon />} text="Tax Estimator" /> */}
                     {/* <NavLink to="/reports" icon={<ReportsIcon />} text="AI Reports" /> */}
                 </nav>
                 <div>

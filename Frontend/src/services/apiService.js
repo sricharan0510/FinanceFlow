@@ -98,4 +98,38 @@ export const apiService = {
         });
         return handleResponse(response);
     },
+    // --- Goals & Savings ---
+    addGoal: async (data) => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(data) });
+        return handleResponse(response);
+    },
+    getGoals: async (params = {}) => {
+        const urlParams = new URLSearchParams(params);
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals?${urlParams.toString()}`, { headers: getAuthHeaders() });
+        return handleResponse(response);
+    },
+    getGoal: async (id) => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals/${id}`, { headers: getAuthHeaders() });
+        return handleResponse(response);
+    },
+    updateGoal: async (id, data) => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals/${id}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(data) });
+        return handleResponse(response);
+    },
+    deleteGoal: async (id) => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
+        return handleResponse(response);
+    },
+    addGoalSaving: async (goalId, data) => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals/${goalId}/savings`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(data) });
+        return handleResponse(response);
+    },
+    getGoalSavings: async (goalId) => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals/${goalId}/savings`, { headers: getAuthHeaders() });
+        return handleResponse(response);
+    },
+    getGoalsSummary: async () => {
+        const response = await fetchWithAuth(`${API_BASE_URL}/goals/summary`, { headers: getAuthHeaders() });
+        return handleResponse(response);
+    },
 };
