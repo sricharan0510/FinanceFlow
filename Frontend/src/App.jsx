@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
+
 import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
 import BudgetsPage from './pages/BudgetsPage';
-
 import SubscriptionsPage from './pages/SubscriptionsPage';
 import GoalsPage from './pages/GoalsPage';
+import AIInsightsPage from './pages/AIInsightsPage';
 import MainLayout from './layouts/MainLayout';
 
 
@@ -55,6 +56,11 @@ export default function App() {
                 <Route 
                     path="/goals" 
                     element={isAuthenticated ? <MainLayout onLogout={handleLogout}><GoalsPage /></MainLayout> : <Navigate to="/login" />} 
+                />
+
+                <Route
+                    path="/ai-insights"
+                    element={isAuthenticated ? <MainLayout onLogout={handleLogout}><AIInsightsPage /></MainLayout> : <Navigate to="/login" />}
                 />
 
                 {/* Default route */}
