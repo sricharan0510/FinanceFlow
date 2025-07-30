@@ -1,4 +1,4 @@
-import { User } from "../Models/user.model.js";
+import { User } from "../models/user.model.js";
 import { OAuth2Client } from "google-auth-library"; 
 import crypto from "crypto";
 
