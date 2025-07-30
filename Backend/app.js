@@ -10,8 +10,15 @@ dotenv.config({
 
 const app = express();
 
+// Logging middleware for debugging
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl} - Origin: ${req.headers.origin}`);
+  next();
+});
+
 const allowedOrigins = [
   'http://localhost:3000',
+  'http://localhost:5173',
   'https://finance-flow-flame-nu.vercel.app'
 ];
 
@@ -20,6 +27,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.warn(`Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
