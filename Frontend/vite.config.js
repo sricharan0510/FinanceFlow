@@ -7,5 +7,14 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: '/'
+  base: '/',
+  build: {
+    outDir: 'dist'
+  },
+  server: {
+    historyApiFallback: true
+  },
+  preview: {
+    fallback: 'index.html'
+  }
 })
