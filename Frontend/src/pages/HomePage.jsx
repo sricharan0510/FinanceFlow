@@ -66,8 +66,6 @@ const HomePage = () => {
     chatHistory.push({ role: "user", parts: [{ text: `As a financial advisor AI, provide a concise, professional, and helpful financial tip or answer to the following question. If the question is not directly related to personal finance, budgeting, investments, savings, or financial planning, politely state that you can only provide financial advice. Question: "${aiPrompt}"` }] });
 
     const payload = { contents: chatHistory };
-    const apiKey = "AIzaSyDAUT8G6bNxEGVc2_wT6hsnAsKJ9P-9aJw";
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
     try {
       let response;
